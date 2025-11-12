@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.12, pytest-9.0.1, pluggy-1.6.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+metadata: {'Python': '3.12.12', 'Platform': 'Linux-6.6.105+-x86_64-with-glibc2.35', 'Packages': {'pytest': '9.0.1', 'pluggy': '1.6.0'}, 'Plugins': {'metadata': '3.1.1', 'cov': '7.0.0', 'html': '4.1.1', 'langsmith': '0.4.41', 'anyio': '4.11.0', 'typeguard': '4.4.4'}}
+rootdir: /content/zorba_ai
+plugins: metadata-3.1.1, cov-7.0.0, html-4.1.1, langsmith-0.4.41, anyio-4.11.0, typeguard-4.4.4
+collecting ... collected 12 items
+
+tests/test_core_functionality.py::test_zorba_reply_exists PASSED         [  8%]
+tests/test_core_functionality.py::test_zorba_reply_with_mock PASSED      [ 16%]
+tests/test_core_functionality.py::test_conversation_context PASSED       [ 25%]
+tests/test_core_functionality.py::test_financial_analysis PASSED         [ 33%]
+tests/test_core_functionality.py::test_dashboard_generation PASSED       [ 41%]
+tests/test_db_and_persistence.py::test_db_connection PASSED              [ 50%]
+tests/test_db_and_persistence.py::test_db_write_and_read PASSED          [ 58%]
+tests/test_db_and_persistence.py::test_feedback_write_and_read PASSED    [ 66%]
+tests/test_db_and_persistence.py::test_db_data_integrity PASSED          [ 75%]
+tests/test_env_and_deps.py::test_openai_key_present SKIPPED (Running...) [ 83%]
+tests/test_env_and_deps.py::test_required_packages_importable PASSED     [ 91%]
+tests/test_env_and_deps.py::test_python_version PASSED                   [100%]
+
+- Generated html report: file:///content/zorba_ai/test_reports/test_report.html -
+======================== 11 passed, 1 skipped in 19.99s ========================
