@@ -217,7 +217,7 @@ jobs:
               # Ensure Space exists
               print(f"📦 Checking if Space exists: {repo_id}")
               try:
-                  api.space_info(repo_id=repo_id, token=token)
+            api.repo_info(repo_id=repo_id, repo_type="space", token=token)
                   print("✅ Space exists")
               except Exception:
                   print("⚠️  Space not found, creating it...")
