@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout your GitHub repo
+      # Step 1: Checkout your repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -24,9 +24,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest pytest-html pytest-cov gtts plotly langchain chromadb huggingface_hub[cli]
+          pip install pytest pytest-html pytest-cov gtts plotly langchain chromadb huggingface_hub
 
-      # Step 4: Run tests in mock mode (no API)
+      # Step 4: Run tests (mock mode)
       - name: Discover and run tests
         env:
           MOCK_LLM: "1"
@@ -36,31 +36,32 @@ jobs:
           echo "🧪 Running test suite..."
           pytest $(find . -type d -name "tests") -v --disable-warnings --maxfail=3 || true
 
-      # Step 5: Save HTML test report
+      # Step 5: Save HTML report
       - name: Save HTML test report
         if: always()
         run: |
           mkdir -p test_reports
           echo "🧾 Tests completed. HTML report stored."
 
-      # ✅ Step 6: Deploy to Hugging Face using CLI (new, safer method)
+      # ✅ Step 6: Deploy to Hugging Face Space using the NEW CLI interface
       - name: Deploy to Hugging Face Space (via CLI)
         if: success()
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          echo "🚀 Deploying to Hugging Face Space using CLI..."
-          pip install -q huggingface_hub[cli]
-          echo "$HF_TOKEN" | huggingface-cli login --token
-          echo "🧱 Uploading code to Space..."
-          huggingface-cli upload ./ "spaces/rahulpython1234/zorbaAI" \
-            --repo-type=space \
+          echo "🚀 Deploying to Hugging Face Space via huggingface_hub..."
+          python -m pip install -q huggingface_hub
+          python -m huggingface_hub login --token "$HF_TOKEN"
+          echo "🧱 Uploading files to Space..."
+          python -m huggingface_hub upload ./ \
+            --repo-type space \
+            --repo-id rahulpython1234/zorbaAI \
             --token "$HF_TOKEN" \
             --commit-message "Auto-deploy from GitHub Actions"
-          echo "✅ Deployment completed via Hugging Face CLI!"
+          echo "✅ Deployment completed successfully!"
 
-      # (Optional) Step 7: Verify deployment (HTTP 200 check)
-      - name: Verify Space is live
+      # Step 7: Verify Space is live
+      - name: Verify Hugging Face Space status
         if: success()
         run: |
           echo "🌐 Checking Space status..."
